@@ -1,0 +1,29 @@
+{
+  "locale": [
+    "en"
+  ],
+  "service": "CRM",
+  "storage": false,
+  "type": "widget",
+  "logo": "favicon.svg",
+  "modules": {
+    "widgets": [
+      {
+        "name": "SmartLead AI Telephony & CRM Conversion",
+        "description": "Real-time speech-to-text telephony intelligence and 1-click Zoho CRM lead conversion",
+        "url": "/app/widget.html",
+        "logo": "favicon.svg",
+        "type": "tab",
+        "height": "750px"
+      },
+      {
+        "name": "SmartLead Telephony CTI Softphone",
+        "description": "Agent copilot and CTI telephony softphone for Zoho PhoneBridge",
+        "url": "/app/widget.html",
+        "logo": "favicon.svg",
+        "type": "cti",
+        "height": "600px"
+      }
+    ]
+  }
+}

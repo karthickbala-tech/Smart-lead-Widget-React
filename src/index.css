@@ -1,0 +1,382 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter-SemiBold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter-ExtraBold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@theme {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --radius-card: 1.25rem;
+    --radius-pill: 9999px;
+}
+
+@layer base {
+    * {
+        box-sizing: border-box;
+    }
+    html,
+    body,
+    #root {
+        margin: 0;
+        width: 100%;
+        min-height: 100%;
+    }
+    html {
+        color-scheme: light;
+    }
+    html.dark {
+        color-scheme: dark;
+    }
+    body {
+        font-family:
+            "Inter",
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            sans-serif;
+        background-color: #faf8fd;
+        color: #0f172a;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        overflow-x: hidden;
+    }
+    html.dark body,
+    html.dark #root {
+        background-color: #0c0919;
+        color: #f8fafc;
+    }
+    button,
+    input,
+    textarea,
+    select {
+        font: inherit;
+    }
+    button {
+        cursor: pointer;
+        user-select: none;
+    }
+}
+
+/* Custom Sleek Glass Scrollbars */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(168, 85, 247, 0.22);
+    border-radius: 9999px;
+    backdrop-filter: blur(8px);
+    transition: background 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 85, 247, 0.5);
+}
+
+/* Modern Glassmorphism & Depth Layers */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(233, 213, 255, 0.65);
+    box-shadow: 
+        0 12px 36px -8px rgba(30, 20, 60, 0.06),
+        0 2px 8px 0 rgba(30, 20, 60, 0.02),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+    transition: box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.dark .glass-panel {
+    background: rgba(18, 13, 36, 0.78);
+    backdrop-filter: blur(28px) saturate(170%);
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
+    border: 1px solid rgba(167, 139, 250, 0.18);
+    box-shadow: 
+        0 16px 48px -10px rgba(0, 0, 0, 0.55),
+        0 0 24px -4px rgba(147, 51, 234, 0.08),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass-card-subtle {
+    background: rgba(255, 255, 255, 0.68);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.2s ease,
+                background-color 0.2s ease;
+}
+
+.dark .glass-card-subtle {
+    background: rgba(24, 18, 48, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(167, 139, 250, 0.14);
+}
+
+.glass-card-subtle:hover {
+    border-color: rgba(168, 85, 247, 0.4);
+    box-shadow: 0 6px 20px -4px rgba(168, 85, 247, 0.14);
+}
+
+.dark .glass-card-subtle:hover {
+    border-color: rgba(192, 132, 252, 0.35);
+    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.6), 0 0 16px -2px rgba(168, 85, 247, 0.18);
+}
+
+/* Polished Interactive Controls */
+.interactive-input {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.interactive-input:focus {
+    border-color: #a855f7;
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+}
+.dark .interactive-input:focus {
+    border-color: #c084fc;
+    box-shadow: 0 0 0 3px rgba(192, 132, 252, 0.2);
+}
+
+/* Tactile Spring & Micro-Interactions */
+.hover-lift {
+    transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 220ms ease,
+                border-color 220ms ease,
+                background-color 220ms ease;
+    will-change: transform;
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+}
+
+.hover-lift:active {
+    transform: scale(0.97) translateY(0);
+}
+
+.btn-spring {
+    transition: transform 160ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 160ms ease,
+                opacity 160ms ease;
+    will-change: transform;
+}
+
+.btn-spring:hover {
+    transform: translateY(-1px);
+}
+
+.btn-spring:active {
+    transform: scale(0.95) translateY(0);
+}
+
+/* Ambient Floating Background Animations (Smooth 60fps transform-only) */
+@keyframes ambientFloat1 {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(24px, -18px, 0) scale(1.06);
+    }
+}
+
+@keyframes ambientFloat2 {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(-24px, 20px, 0) scale(1.08);
+    }
+}
+
+@keyframes ambientFloat3 {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+        transform: translate3d(18px, 24px, 0) scale(0.96);
+    }
+}
+
+.animate-ambient-1 {
+    animation: ambientFloat1 20s ease-in-out infinite;
+    will-change: transform;
+}
+.animate-ambient-2 {
+    animation: ambientFloat2 24s ease-in-out infinite;
+    will-change: transform;
+}
+.animate-ambient-3 {
+    animation: ambientFloat3 28s ease-in-out infinite;
+    will-change: transform;
+}
+
+/* Dynamic Gradient Flow */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-shift {
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease infinite;
+}
+
+/* Entrance Animations */
+@keyframes cardEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.99);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-card-in {
+    animation: cardEntrance 320ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Shimmer Animation for AI and Loading states */
+@keyframes shimmerSweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+}
+
+.animate-shimmer {
+    animation: shimmerSweep 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Field Reveal Glow */
+@keyframes fieldRevealGlow {
+    0% {
+        background-color: rgba(236, 72, 153, 0.22);
+        box-shadow: 0 0 16px rgba(236, 72, 153, 0.4);
+        border-color: rgba(236, 72, 153, 0.6);
+        transform: scale(1.01);
+    }
+    50% {
+        background-color: rgba(236, 72, 153, 0.1);
+    }
+    100% {
+        background-color: transparent;
+        box-shadow: none;
+        transform: scale(1);
+    }
+}
+
+.animate-field-reveal {
+    animation: fieldRevealGlow 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Pulsing Status Rings */
+@keyframes pulseRingAnimation {
+    0% { transform: scale(0.9); opacity: 0.85; }
+    50% { transform: scale(1.35); opacity: 0.25; }
+    100% { transform: scale(1.7); opacity: 0; }
+}
+
+.animate-pulse-ring {
+    animation: pulseRingAnimation 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    will-change: transform, opacity;
+}
+
+/* Audio Waveform Bars */
+@keyframes waveHeight1 { 0%, 100% { height: 4px; } 50% { height: 22px; } }
+@keyframes waveHeight2 { 0%, 100% { height: 8px; } 50% { height: 26px; } }
+@keyframes waveHeight3 { 0%, 100% { height: 5px; } 50% { height: 18px; } }
+@keyframes waveHeight4 { 0%, 100% { height: 10px; } 50% { height: 28px; } }
+@keyframes waveHeight5 { 0%, 100% { height: 6px; } 50% { height: 24px; } }
+@keyframes waveHeight6 { 0%, 100% { height: 7px; } 50% { height: 20px; } }
+@keyframes waveHeight7 { 0%, 100% { height: 4px; } 50% { height: 25px; } }
+
+.animate-wave-1 { animation: waveHeight1 0.9s ease-in-out infinite 0.1s; }
+.animate-wave-2 { animation: waveHeight2 1.1s ease-in-out infinite 0.25s; }
+.animate-wave-3 { animation: waveHeight3 0.85s ease-in-out infinite 0.15s; }
+.animate-wave-4 { animation: waveHeight4 1.2s ease-in-out infinite 0.35s; }
+.animate-wave-5 { animation: waveHeight5 1.0s ease-in-out infinite 0.05s; }
+.animate-wave-6 { animation: waveHeight6 0.95s ease-in-out infinite 0.2s; }
+.animate-wave-7 { animation: waveHeight7 1.15s ease-in-out infinite 0.3s; }
+
+/* AI Thinking Dots */
+@keyframes typingBounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+    40% { transform: translateY(-5px); opacity: 1; }
+}
+
+.animate-typing-1 { animation: typingBounce 1.2s infinite 0.1s; }
+.animate-typing-2 { animation: typingBounce 1.2s infinite 0.25s; }
+.animate-typing-3 { animation: typingBounce 1.2s infinite 0.4s; }
+
+/* Pop Check Icon */
+@keyframes popCheck {
+    0% { transform: scale(0.6); opacity: 0; }
+    60% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-pop-check {
+    animation: popCheck 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+

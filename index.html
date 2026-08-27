@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Error shield to intercept uncaught cross-origin notifications and SDK noise (Must be first in head) -->
+    <script>
+        (function() {
+            var origOnError = window.onerror;
+            window.onerror = function (msg, url, lineNo, columnNo, error) {
+                var strMsg = String(msg || '');
+                var strUrl = String(url || '');
+                if (
+                    !msg ||
+                    strMsg === 'Script error.' ||
+                    strMsg === 'Script error' ||
+                    strMsg.indexOf('Script error') !== -1 ||
+                    strUrl.indexOf('zwidgets') !== -1 ||
+                    strUrl.indexOf('zoho') !== -1 ||
+                    strMsg.indexOf('Parentwindow') !== -1 ||
+                    strMsg.indexOf('postMessage') !== -1 ||
+                    strMsg.indexOf('drawtip') !== -1 ||
+                    strMsg.indexOf('MICS') !== -1 ||
+                    strMsg.indexOf('includes') !== -1
+                ) {
+                    return true; // suppresses error
+                }
+                if (typeof origOnError === 'function') {
+                    return origOnError.apply(this, arguments);
+                }
+                return false;
+            };
+
+            window.addEventListener('error', function (e) {
+                var msg = String((e && (e.message || (e.error && e.error.message))) || '');
+                var filename = String((e && e.filename) || '');
+                if (
+                    !msg ||
+                    msg === 'Script error.' ||
+                    msg === 'Script error' ||
+                    msg.indexOf('Script error') !== -1 ||
+                    filename.indexOf('zwidgets') !== -1 ||
+                    filename.indexOf('zoho') !== -1 ||
+                    msg.indexOf('Parentwindow') !== -1 ||
+                    msg.indexOf('postMessage') !== -1 ||
+                    msg.indexOf('drawtip') !== -1 ||
+                    msg.indexOf('MICS') !== -1 ||
+                    msg.indexOf('includes') !== -1
+                ) {
+                    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+                    if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+                    if (e && typeof e.stopImmediatePropagation === 'function') {
+                        e.stopImmediatePropagation();
+                    }
+                    return true;
+                }
+            }, true);
+
+            window.addEventListener('unhandledrejection', function (e) {
+                var reason = String((e && e.reason && (e.reason.message || e.reason)) || '');
+                if (
+                    !reason ||
+                    reason === 'Script error.' ||
+                    reason.indexOf('Script error') !== -1 ||
+                    reason.indexOf('Parentwindow') !== -1 ||
+                    reason.indexOf('postMessage') !== -1 ||
+                    reason.indexOf('zwidgets') !== -1 ||
+                    reason.indexOf('zoho') !== -1 ||
+                    reason.indexOf('drawtip') !== -1 ||
+                    reason.indexOf('MICS') !== -1 ||
+                    reason.indexOf('includes') !== -1
+                ) {
+                    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+                    if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
+                    if (e && typeof e.stopImmediatePropagation === 'function') {
+                        e.stopImmediatePropagation();
+                    }
+                }
+            }, true);
+        })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+        name="description"
+        content="Telephony Call Bot & Voice Intelligence Engine"
+    />
+    <title>Telephony Call Bot</title>
+</head>
+<body>
+    <div id="root"></div>
+    <!-- Zoho Embedded App JS SDK for Zoho CRM Web Tab / Widget Container -->
+    <script src="https://live.zwidgets.com/js-sdk/1.2/ZohoEmbededAppSDK.min.js"></script>
+    <script
+        type="module"
+        src="/src/main.jsx">
+    </script>
+</body>
+</html>
